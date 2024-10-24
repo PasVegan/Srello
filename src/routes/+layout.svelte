@@ -22,8 +22,6 @@
             <NavUl {hidden} divClass="justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
                    ulClass="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0" activeUrl={activeUrl}>
                 <NavLi href="/">Home</NavLi>
-                <NavLi href="/#">Company</NavLi>
-                <NavLi href="/#">Marketplace</NavLi>
                 <NavLi href="/#">Features</NavLi>
                 <NavLi href="/#">Team</NavLi>
                 <NavLi href="/#">Contact</NavLi>
