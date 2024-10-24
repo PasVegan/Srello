@@ -3,7 +3,12 @@
     import {Navbar, NavBrand, NavHamburger, NavUl, NavLi, Button} from 'flowbite-svelte';
     import {page} from '$app/stores';
 
-    $: activeUrl = $page.url.pathname == undefined ? '/' : $page.url.pathname;
+    interface Props {
+        children?: import('svelte').Snippet;
+    }
+    let {children}: Props = $props();
+
+    let activeUrl = $derived($page.url.pathname == undefined ? '/' : $page.url.pathname);
 </script>
 
 {#if !activeUrl.includes('/app')}
@@ -30,5 +35,5 @@
     </header>
 {/if}
 <div class="">
-    <slot />
+    {@render children?.()}
 </div>
