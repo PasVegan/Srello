@@ -30,7 +30,7 @@
             {#snippet paragraph()}
                 Srello brings all your tasks, teammates, and tools together
             {/snippet}
-            <a href="/">
+            <a href="/register">
                 <Button size="xl" color="red" class="inline-flex items-center justify-center mr-3">Get started
                     <ArrowRightOutline size="md" class="ml-2 -mr-1"/>
                 </Button>
@@ -172,6 +172,6 @@
     </div>
     <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8"/>
     <div class="sm:flex sm:items-center sm:justify-between">
-        <FooterCopyright href="/" by="Srello™"/>
+        <FooterCopyright href="/landing" by="Srello™"/>
     </div>
 </Footer>
