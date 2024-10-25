@@ -3,11 +3,11 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
-		"preview": "vite preview",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+		"dev": "bunx --bun vite dev",
+		"build": "bunx --bun vite build",
+		"preview": "bunx --bun vite preview",
+		"check": "bunx --bun svelte-kit sync && bunx --bun svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "bunx --bun svelte-kit sync && bunx --bun svelte-check --tsconfig ./tsconfig.json --watch"
 	},
 	"devDependencies": {
 		"@sveltejs/kit": "^2.7.2",
@@ -27,6 +27,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@types/node": "^22.7.9"
+		"@types/node": "^22.7.9",
+		"pocketbase": "^0.21.5"
 	}
 }
