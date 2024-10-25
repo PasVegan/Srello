@@ -2,12 +2,23 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
+		<link rel="icon" href="%sveltekit.assets%/srello.svg" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>EpiTrello</title>
+		<script>
+			if (
+					localStorage.getItem('color-theme') === 'dark' ||
+					(!('color-theme' in localStorage) &&
+							window.matchMedia('(prefers-color-scheme: dark)').matches)
+			) {
+				document.documentElement.classList.add('dark');
+			} else {
+				document.documentElement.classList.remove('dark');
+			}
+		</script>
 		%sveltekit.head%
 	</head>
-	<body data-sveltekit-preload-data="hover">
+	<body data-sveltekit-preload-data="hover" class="bg-white dark:bg-gray-900">
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>
 </html>

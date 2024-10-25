@@ -1,0 +1,1 @@
+export const pbURL: string = "https://epitrello-pocketbase-739aa1-159-89-12-44.traefik.me";
