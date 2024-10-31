@@ -11,7 +11,14 @@ export const handle: Handle = async ({ event, resolve }): Promise<Response> => {
     let isLogged: boolean = false;
 
     if (event.locals.pb.authStore.isValid) {
-        await event.locals.pb.collection(Collections.Users).authRefresh();
+        try {
+            await event.locals.pb.collection(Collections.Users).authRefresh();
+        } catch (err) {
+            console.error('Error refreshing auth token', err);
+            event.locals.pb.authStore.clear();
+            event.request.headers.delete('cookie');
+            throw redirect(303, '/login');
+        }
         event.locals.user = serializeNonPOJOs(event.locals.pb.authStore.model);
         isLogged = true;
     } else {
