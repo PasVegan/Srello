@@ -2,6 +2,7 @@
     import { Button, Navbar, NavBrand, NavUl, NavLi, uiHelpers, NavHamburger, Dropdown, DropdownHeader, DropdownUl, DropdownLi, Avatar, DropdownFooter } from 'svelte-5-ui-lib';
     import { sineIn } from "svelte/easing";
     import type { LayoutData } from './$types';
+    import CreateWorkspaceModal from "$components/CreateWorkspaceModal.svelte";
 
     interface Props {
         data: LayoutData
@@ -20,16 +21,11 @@
     let dropdownWorkspaceStatus = $state(false);
     let closeDropdownWorkspace = dropdownWorkspace.close;
 
+    const createWorkspaceModalHelpers = uiHelpers();
+
     let {data, children}: Props = $props();
 
-    let workspaces = [
-        { name: "Workspace 1", id: 0 },
-        { name: "Workspace 2", id: 1 },
-        { name: "Workspace 3", id: 2 },
-        { name: "Workspace 4", id: 3 },
-        { name: "Workspace 5", id: 4 },
-    ];
-    let currentWorkspace = $state(workspaces[0]);
+    let currentWorkspace = $state(data.props.workspaces[0]);
 
     $effect(() => {
         dropdownUserStatus = dropdownUser.isOpen;
@@ -56,7 +52,9 @@
                     </DropdownHeader>
                     <DropdownUl>
                         <DropdownLi href="/app/profile">Profile</DropdownLi>
-                        <DropdownLi href="/app/workspace">Create Workspace</DropdownLi>
+                        <DropdownLi liClass="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                            <button onclick={createWorkspaceModalHelpers.open}>Create Workspace</button>
+                        </DropdownLi>
                     </DropdownUl>
                     <DropdownFooter class="px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">Sign out</DropdownFooter>
                 </Dropdown>
@@ -68,7 +66,7 @@
         <NavLi onclick={dropdownWorkspace.toggle} class="cursor-pointer">Workspaces</NavLi>
         <div class="relative">
             <Dropdown dropdownStatus={dropdownWorkspaceStatus} closeDropdown={closeDropdownWorkspace} params={{ y: 0, duration: 200, easing: sineIn }} class="absolute -left-[110px] top-[14px] md:-left-[160px] w-auto">
-                {#if workspaces.length > 1}
+                {#if data.props.workspaces.length > 1}
                     <DropdownHeader class="px-2 pt-2 pb-4 w-auto">
                         <span class="block text-sm text-gray-900 dark:text-gray-400 mb-4">Current Workspace:</span>
                         <span class="block text-base font-medium ml-4">{currentWorkspace.name}</span>
@@ -76,12 +74,13 @@
                 {/if}
                 <DropdownUl class="w-auto">
                     <span class="block text-sm text-gray-900 dark:text-gray-400 mb-2 px-2">Your Workspaces:</span>
-                    {#each workspaces as workspace}
-                        <DropdownLi onclick={() => {currentWorkspace = workspaces[workspace.id]}} href="/app/workspace/{workspace.id}" aClass="pl-6 text-base w-auto" liClass="w-auto">{workspace.name}</DropdownLi>
+                    {#each data.props.workspaces as workspace, id}
+                        <DropdownLi onclick={() => {currentWorkspace = data.props.workspaces[id]}} href="/app/workspace/{workspace.id}" aClass="pl-6 text-base w-auto" liClass="w-auto">{workspace.name}</DropdownLi>
                     {/each}
                 </DropdownUl>
             </Dropdown>
         </div>
     </NavUl>
 </Navbar>
+<CreateWorkspaceModal modalHelpers={createWorkspaceModalHelpers}></CreateWorkspaceModal>
 {@render children?.()}
