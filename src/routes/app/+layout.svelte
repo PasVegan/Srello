@@ -1,6 +1,7 @@
 <script lang="ts">
     import { Button, Navbar, NavUl, NavLi, uiHelpers, NavHamburger, Dropdown, DropdownHeader, DropdownUl, DropdownLi, Avatar, DropdownFooter } from 'svelte-5-ui-lib';
     import { sineIn } from "svelte/easing";
+    import AngleDownOutline from "flowbite-svelte-icons/AngleDownOutline.svelte";
     import type { LayoutData } from './$types';
     import CreateWorkspaceModal from "$components/CreateWorkspaceModal.svelte";
 
@@ -39,7 +40,12 @@
             <img width="30" src="/srello.svg" alt="Srello logo" />
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Srello</h1>
         </NavLi>
-        <NavLi onclick={dropdownWorkspace.toggle} class="cursor-pointer place-self-center">Workspaces</NavLi>
+        <NavLi onclick={dropdownWorkspace.toggle} class="cursor-pointer place-self-center">
+            <div class="flex gap-2">
+                Workspaces
+                <AngleDownOutline></AngleDownOutline>
+            </div>
+        </NavLi>
         <div class="relative place-self-center">
             <Dropdown dropdownStatus={dropdownWorkspaceStatus} closeDropdown={closeDropdownWorkspace} params={{ y: 0, duration: 200, easing: sineIn }} class="absolute -left-[110px] top-[14px] md:-left-[120px] w-auto">
                 <DropdownUl class="w-auto">
