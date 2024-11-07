@@ -41,11 +41,11 @@
                 <h3 class="text-xl font-medium text-gray-900 dark:text-white p-0">Create an account</h3>
                 <Label class="space-y-2">
                     <span>Your name</span>
-                    <Input type="text" name="name" placeholder="John Appleseed" required/>
+                    <Input type="text" name="name" placeholder="John Appleseed" required autocomplete="name"/>
                 </Label>
                 <Label class="space-y-2">
                     <span>Your email</span>
-                    <Input type="email" name="email" placeholder="name@company.com" required/>
+                    <Input type="email" name="email" placeholder="name@company.com" required autocomplete="email"/>
                 </Label>
                 <Label class="space-y-2">
                     <span>Your password</span>
@@ -54,6 +54,7 @@
                             name="password"
                             placeholder="•••••"
                             required
+                            autocomplete="new-password"
                             bind:value={password}
                             on:blur={validatePassword}
                             minlength={5}
@@ -64,7 +65,7 @@
                 </Label>
                 <Label class="space-y-2">
                     <span>Confirm password</span>
-                    <Input type="password" name="passwordConfirm" placeholder="•••••" required/>
+                    <Input type="password" name="passwordConfirm" placeholder="•••••" required autocomplete="new-password"/>
                 </Label>
                 {#if sending}
                     <Button type="submit" class="w-full1">

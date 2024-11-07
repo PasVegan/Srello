@@ -18,11 +18,11 @@
                 <h3 class="text-xl font-medium text-gray-900 dark:text-white p-0">Log in</h3>
                 <Label class="space-y-2">
                     <span>Your email</span>
-                    <Input type="email" name="email" placeholder="name@company.com" required/>
+                    <Input type="email" name="email" placeholder="name@company.com" required autocomplete="email"/>
                 </Label>
                 <Label class="space-y-2">
                     <span>Your password</span>
-                    <Input type="password" name="password" placeholder="•••••" required/>
+                    <Input type="password" name="password" placeholder="•••••" required autocomplete="current-password"/>
                 </Label>
                 <div class="flex items-start">
                     <Checkbox>Remember me</Checkbox>
