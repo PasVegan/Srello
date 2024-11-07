@@ -1,7 +1,7 @@
 <script lang="ts">
     import {CloseButton, Sidebar, SidebarGroup, SidebarItem} from 'svelte-5-ui-lib';
     import {UserOutline, CogOutline} from "flowbite-svelte-icons";
-    import type { PageData } from './$types';
+    import type { LayoutData } from './$types';
     import { page } from "$app/stores";
 
     const spanClass = "flex-1 ms-3 whitespace-nowrap";
@@ -18,16 +18,9 @@
 
     interface Props {
         children?: import('svelte').Snippet;
-        data: PageData;
+        data: LayoutData;
     }
-
     let {children, data}: Props = $props();
-
-    let currentWorkspace = $state(data.props.workspaces.find(workspace => workspace.id === $page.params.slug)!)
-
-    $effect(() => {
-        currentWorkspace = data.props.workspaces.find(workspace => workspace.id === $page.params.slug)!;
-    });
 </script>
 
 
@@ -36,7 +29,7 @@
         <Sidebar backdrop={false} activateClickOutside={false} params={{ x: -50, duration: 50 }}
                  class="relative h-full" activeClass="p-2" nonActiveClass="p-2">
             <div class="flex justify-between items-center w-full">
-                <span class="text-lg font-semibold text-gray-900 dark:text-gray-200">{currentWorkspace.name}</span>
+                <span class="text-lg font-semibold text-gray-900 dark:text-gray-200">{data.props.workspace.name}</span>
                 <CloseButton onclick={closeSidebarUi} color="red"/>
             </div>
 
@@ -78,7 +71,7 @@
         </span>
         </button>
     {/if}
-    <div class="flex-1 p-4">
+    <div class="flex-1">
         {@render children?.()}
     </div>
 </div>
