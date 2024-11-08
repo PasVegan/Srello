@@ -41,22 +41,23 @@
                 <h3 class="text-xl font-medium text-gray-900 dark:text-white p-0">Create an account</h3>
                 <Label class="space-y-2">
                     <span>Your name</span>
-                    <Input type="text" name="name" placeholder="John Appleseed" required/>
+                    <Input autocomplete="name" name="name" placeholder="John Appleseed" required type="text"/>
                 </Label>
                 <Label class="space-y-2">
                     <span>Your email</span>
-                    <Input type="email" name="email" placeholder="name@company.com" required/>
+                    <Input autocomplete="email" name="email" placeholder="name@company.com" required type="email"/>
                 </Label>
                 <Label class="space-y-2">
                     <span>Your password</span>
                     <Input
-                            type="password"
+                            autocomplete="new-password"
+                            bind:value={password}
+                            minlength={5}
                             name="password"
+                            on:blur={validatePassword}
                             placeholder="•••••"
                             required
-                            bind:value={password}
-                            on:blur={validatePassword}
-                            minlength={5}
+                            type="password"
                     />
                     {#if passwordError}
                         <span class="text-red-500 text-sm">{passwordError}</span>
@@ -64,7 +65,8 @@
                 </Label>
                 <Label class="space-y-2">
                     <span>Confirm password</span>
-                    <Input type="password" name="passwordConfirm" placeholder="•••••" required/>
+                    <Input autocomplete="new-password" name="passwordConfirm" placeholder="•••••" required
+                           type="password"/>
                 </Label>
                 {#if sending}
                     <Button type="submit" class="w-full1">
@@ -76,7 +78,7 @@
                 {/if}
                 <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
                     Already have an account?
-                    <a href="/login" class="font-medium text-primary-600 hover:underline dark:text-primary-500">
+                    <a class="font-medium text-primary-600 hover:underline dark:text-primary-500" href="/login">
                         Login here
                     </a>
                 </div>

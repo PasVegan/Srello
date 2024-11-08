@@ -31,14 +31,14 @@
                 Srello brings all your tasks, teammates, and tools together
             {/snippet}
             <a href="/register">
-                <Button size="xl" color="red" class="inline-flex items-center justify-center mr-3">Get started
-                    <ArrowRightOutline size="md" class="ml-2 -mr-1"/>
+                <Button class="inline-flex items-center justify-center mr-3" color="red" size="xl">Get started
+                    <ArrowRightOutline class="ml-2 -mr-1" size="md"/>
                 </Button>
             </a>
         </HeroHeader>
     </div>
     <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
-        <img src="/SrelloUIMockupLanding3.webp" alt="Application UI mockup"/>
+        <img alt="Application UI mockup" src="/SrelloUIMockupLanding3.webp"/>
     </div>
 </Section>
 
@@ -110,8 +110,8 @@
                 {/snippet}
                 <p class="text-gray-500 dark:text-gray-400">You can add unlimited team members to your boards.</p>
                 <p class="text-gray-500 dark:text-gray-400">
-                    Need more information? <a href="/"
-                                              class="font-medium underline text-primary-600 dark:text-primary-500 hover:no-underline">Contact
+                    Need more information? <a class="font-medium underline text-primary-600 dark:text-primary-500 hover:no-underline"
+                                              href="/">Contact
                     our support team</a>.
                 </p>
             </FaqItem>
@@ -133,8 +133,8 @@
                     perfect for both small teams and large organizations. Our focus on user experience and seamless
                     collaboration sets us apart from other tools.</p>
                 <p class="text-gray-500 dark:text-gray-400">
-                    Learn more about our features in our <a href="/"
-                                                            class="font-medium underline text-primary-600 dark:text-primary-500 hover:no-underline">documentation</a>.
+                    Learn more about our features in our <a class="font-medium underline text-primary-600 dark:text-primary-500 hover:no-underline"
+                                                            href="/">documentation</a>.
                 </p>
             </FaqItem>
         </div>
@@ -144,34 +144,34 @@
 <Footer footerType="socialmedia">
     <div class="grid gap-12 lg:grid-cols-5 lg:gap-24">
         <div class="col-span-2">
-            <FooterBrand href="https://area.cbyte.be" src="/srello.svg" alt="Srello Logo" name="Srello"
-                         aClass="flex mb-6"/>
+            <FooterBrand aClass="flex mb-6" alt="Srello Logo" href="https://area.cbyte.be" name="Srello"
+                         src="/srello.svg"/>
             <p class="text-gray-600 dark:text-gray-400">Srello is agile planning application for developers</p>
         </div>
         <div>
             <h2 class="mb-6 text-sm font-semibold text-gray-400 uppercase dark:text-white">Resources</h2>
             <FooterLinkGroup>
-                <FooterLink liClass="mb-4" href="https://kit.svelte.dev">SvelteKit</FooterLink>
-                <FooterLink liClass="mb-4" href="https://flowbite-svelte.com">Flowbite-Svelte</FooterLink>
+                <FooterLink href="https://kit.svelte.dev" liClass="mb-4">SvelteKit</FooterLink>
+                <FooterLink href="https://flowbite-svelte.com" liClass="mb-4">Flowbite-Svelte</FooterLink>
             </FooterLinkGroup>
         </div>
         <div>
             <h2 class="mb-6 text-sm font-semibold text-gray-400 uppercase dark:text-white">help & support</h2>
             <FooterLinkGroup>
-                <FooterLink liClass="mb-4" href="mailto:quentin.filliaert@proton.me">Mail</FooterLink>
-                <FooterLink liClass="mb-4" href="https://github.com/PasVegan">GitHub</FooterLink>
+                <FooterLink href="mailto:quentin.filliaert@proton.me" liClass="mb-4">Mail</FooterLink>
+                <FooterLink href="https://github.com/PasVegan" liClass="mb-4">GitHub</FooterLink>
             </FooterLinkGroup>
         </div>
         <div>
             <h2 class="mb-6 text-sm font-semibold text-gray-400 uppercase dark:text-white">Follow me</h2>
             <FooterLinkGroup>
-                <FooterLink liClass="mb-4" href="https://www.linkedin.com/in/quentin-filliaert">LinkedIn</FooterLink>
-                <FooterLink liClass="mb-4" href="https://github.com/PasVegans">GitHub</FooterLink>
+                <FooterLink href="https://www.linkedin.com/in/quentin-filliaert" liClass="mb-4">LinkedIn</FooterLink>
+                <FooterLink href="https://github.com/PasVegans" liClass="mb-4">GitHub</FooterLink>
             </FooterLinkGroup>
         </div>
     </div>
     <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8"/>
     <div class="sm:flex sm:items-center sm:justify-between">
-        <FooterCopyright href="/landing" by="Srello™"/>
+        <FooterCopyright by="Srello™" href="/landing"/>
     </div>
 </Footer>
