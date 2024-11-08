@@ -1,5 +1,5 @@
 import {Collections} from "$lib/pocketbase-types";
-import {error, redirect} from "@sveltejs/kit";
+import {fail, redirect} from "@sveltejs/kit";
 // @ts-ignore
 import type {Actions} from "$types";
 
@@ -24,7 +24,7 @@ export const actions = {
             })
         } catch (err) {
             console.log('Error creating workspace', err);
-            throw error(500, 'Error creating workspace');
+            return fail(500, {error: 'Error creating workspace'});
         }
 
         throw redirect(303, '/app');

@@ -1,6 +1,6 @@
 import type { Actions } from './$types';
 import {Collections} from "$lib/pocketbase-types";
-import {error} from "@sveltejs/kit";
+import {fail} from "@sveltejs/kit";
 
 export const actions = {
     addMember: async ({ params, locals, request }) => {
@@ -13,7 +13,7 @@ export const actions = {
                 locals.pb.filter("email = {:email}", {email: body.email}));
             if (!resUser) {
                 console.log('User not found');
-                return false;
+                return { success: false };
             }
             await locals.pb.collection(Collections.Workspaces).update(workspaceId, {
                 "members+": resUser.id,
@@ -21,13 +21,33 @@ export const actions = {
             await locals.pb.collection(Collections.Users).update(resUser.id, {
                 "workspaces+": workspaceId,
             });
-            return true;
+            return { success: true };
         } catch (err) {
             console.log('Error adding member', err);
-            throw error(500, 'Error creating workspace');
+            return fail(500, {error: 'Error creating workspace'});
         }
     },
-    deleteMember: async ({params, locals, request }) => {
-    // TODO register the user
+    deleteMember: async ({ url, params, locals }) => {
+        const workspaceId = params.slug;
+        const userId = url.searchParams.get('id');
+
+        if (!userId) {
+            return fail(400, { error: 'User ID is required' });
+        }
+        if (userId === locals.user?.id) {
+            return fail(400, { error: 'You cannot delete yourself' });
+        }
+
+        try {
+            await locals.pb.collection(Collections.Workspaces).update(workspaceId, {
+                "members-": userId,
+            })
+            await locals.pb.collection(Collections.Users).update(userId, {
+                "workspaces-": workspaceId,
+            });
+            return { success: true };
+        } catch (error) {
+            return fail(500, { error: 'Failed to delete member' });
+        }
     }
 } satisfies Actions;

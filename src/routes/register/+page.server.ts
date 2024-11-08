@@ -1,6 +1,6 @@
 import type {Actions} from './$types';
 import {generateUsername} from "$lib/utils";
-import {error, redirect} from "@sveltejs/kit";
+import {fail, redirect} from "@sveltejs/kit";
 import {Collections, type WorkspacesRecord} from "$lib/pocketbase-types";
 
 
@@ -48,7 +48,7 @@ export const actions = {
             locals.pb.authStore.clear();
         } catch (err) {
             console.log('Error registering user', err);
-            throw error(500, 'Error registering user');
+            return fail(500, {error: 'Error registering user'});
         }
 
         throw redirect(303, '/login');

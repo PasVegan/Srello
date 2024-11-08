@@ -1,5 +1,5 @@
 import type {Actions} from './$types';
-import {error, redirect} from "@sveltejs/kit";
+import {fail, redirect} from "@sveltejs/kit";
 import {Collections} from "$lib/pocketbase-types";
 
 export const actions = {
@@ -18,7 +18,7 @@ export const actions = {
             }
         } catch (err) {
             console.log('Error logging-in user', err);
-            throw error(500, 'Error logging-in user');
+            return fail(500, {error: 'Error logging-in user'});
         }
 
         throw redirect(303, '/app');
