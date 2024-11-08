@@ -1,9 +1,9 @@
 import type {Actions} from './$types';
-import {error} from "@sveltejs/kit";
+import {fail} from "@sveltejs/kit";
 import {Collections} from "$lib/pocketbase-types";
 
 export const actions = {
-    forgot: async ({ locals, request }) => {
+    forgot: async ({locals, request}) => {
         const body = Object.fromEntries(await request.formData());
 
         try {
@@ -12,7 +12,7 @@ export const actions = {
             }
         } catch (err) {
             console.log('Error resetting password', err);
-            throw error(500, 'Error resetting password');
+            return fail(500, {error: 'Error resetting password'});
         }
     }
 } satisfies Actions;
