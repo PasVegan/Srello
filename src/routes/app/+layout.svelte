@@ -46,10 +46,10 @@
                 <AngleDownOutline></AngleDownOutline>
             </div>
         </NavLi>
-        <div class="relative place-self-center">
-            <Dropdown dropdownStatus={dropdownWorkspaceStatus} closeDropdown={closeDropdownWorkspace} params={{ y: 0, duration: 200, easing: sineIn }} class="absolute -left-[110px] top-[14px] md:-left-[120px] w-auto">
-                <DropdownUl class="w-auto">
-                    <span class="block text-sm text-gray-900 dark:text-gray-400 mb-2 px-2">Your Workspaces:</span>
+        <div class="relative place-self-center" style="z-index: 60;">
+            <Dropdown dropdownStatus={dropdownWorkspaceStatus} closeDropdown={closeDropdownWorkspace} params={{ y: 0, duration: 200, easing: sineIn }} class="absolute -left-[110px] top-[14px] md:-left-[120px] w-auto z-50">
+                <DropdownUl class="w-auto z-50">
+                    <span class="block text-sm text-gray-900 dark:text-gray-400 mb-2 px-2 z-50">Your Workspaces:</span>
                     {#each data.props.workspaces as workspace}
                         <DropdownLi href="/app/w/{workspace.id}" aClass="pl-6 text-base w-auto" activeClass=" text-base w-auto" liClass="w-auto">{workspace.name}</DropdownLi>
                     {/each}
@@ -62,7 +62,7 @@
             <Button size="sm">Create</Button>
             <Avatar onclick={dropdownUser.toggle} src={data.props.user.avatar} dot={{ color: "green" }} />
             <div class="relative">
-                <Dropdown dropdownStatus={dropdownUserStatus} closeDropdown={closeDropdownUser} params={{ y: 0, duration: 200, easing: sineIn }} class="absolute -left-[110px] top-[14px] md:-left-[160px] w-auto">
+                <Dropdown dropdownStatus={dropdownUserStatus} closeDropdown={closeDropdownUser} params={{ y: 0, duration: 200, easing: sineIn }} class="absolute -left-[110px] top-[14px] md:-left-[160px] w-auto" style="z-index: 100 !important;">
                     <DropdownHeader class="px-4 py-2">
                         <span class="block text-sm text-gray-900 dark:text-white">{data.props.user.name}</span>
                         <span class="block text-sm font-medium">{data.props.user.email}</span>
@@ -73,7 +73,11 @@
                             <button onclick={createWorkspaceModalHelpers.open}>Create Workspace</button>
                         </DropdownLi>
                     </DropdownUl>
-                    <DropdownFooter class="px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">Sign out</DropdownFooter>
+                    <DropdownFooter class="px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">
+                        <form method="post" action="/logout">
+                            <button type="submit">Logout</button>
+                        </form>
+                    </DropdownFooter>
                 </Dropdown>
             </div>
             <NavHamburger {toggleNav} />
