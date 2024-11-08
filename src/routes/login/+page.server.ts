@@ -3,7 +3,7 @@ import {fail, redirect} from "@sveltejs/kit";
 import {Collections} from "$lib/pocketbase-types";
 
 export const actions = {
-    login: async ({ locals, request }) => {
+    login: async ({locals, request}) => {
         const body = Object.fromEntries(await request.formData());
 
         try {

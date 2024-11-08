@@ -1,10 +1,10 @@
-import { redirect, type Handle } from "@sveltejs/kit";
+import {type Handle, redirect} from "@sveltejs/kit";
 import PocketBase from 'pocketbase';
-import { serializeNonPOJOs } from "$lib/utils";
-import { pbURL } from "$lib/globals";
+import {serializeNonPOJOs} from "$lib/utils";
+import {pbURL} from "$lib/globals";
 import {Collections, type TypedPocketBase} from "$lib/pocketbase-types";
 
-export const handle: Handle = async ({ event, resolve }): Promise<Response> => {
+export const handle: Handle = async ({event, resolve}): Promise<Response> => {
     // Check if the user is authenticated
     event.locals.pb = new PocketBase(pbURL) as TypedPocketBase;
     event.locals.pb.authStore.loadFromCookie(event.request.headers.get('cookie') || '');

@@ -5,11 +5,11 @@ interface Texpand {
     users_via_workspaces: UsersResponse[]
 }
 
-export const load: LayoutServerLoad = async ({ locals, params }) => {
+export const load: LayoutServerLoad = async ({locals, params}) => {
     // Fetch the workspace and its users
     const workspace = await locals.pb.collection(Collections.Workspaces).getOne<WorkspacesResponse<Texpand>>(
         params.slug as string,
-        { expand: "users_via_workspaces" }
+        {expand: "users_via_workspaces"}
     );
 
     // Process all avatar URLs in parallel

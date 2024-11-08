@@ -3,7 +3,7 @@ import {fail} from "@sveltejs/kit";
 import {Collections} from "$lib/pocketbase-types";
 
 export const actions = {
-    forgot: async ({ locals, request }) => {
+    forgot: async ({locals, request}) => {
         const body = Object.fromEntries(await request.formData());
 
         try {

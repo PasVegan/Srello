@@ -6,7 +6,7 @@ import type {Actions} from "$types";
 
 export const actions = {
     // @ts-ignore
-    default: async ({ locals, request }) => {
+    default: async ({locals, request}) => {
         const body = Object.fromEntries(await request.formData());
 
         try {
