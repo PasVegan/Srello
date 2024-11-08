@@ -1,5 +1,6 @@
 <script lang="ts">
     import { Card, Avatar, Button, Modal, Alert, Input, Badge, Search } from 'svelte-5-ui-lib';
+    import UserAddOutline from 'flowbite-svelte-icons/UserAddOutline.svelte'
     import { slide } from 'svelte/transition';
     import type { PageData } from './$types';
     import type {UsersResponse} from "$lib/pocketbase-types";
@@ -17,11 +18,6 @@
 
     const toggleInviteModal = () => {
         showInviteModal = !showInviteModal;
-    };
-
-    const handleInviteWithLink = () => {
-        showAlert = true;
-        setTimeout(() => showAlert = false, 3000);
     };
 
     const handleRemoveMember = (member: UsersResponse) => {
@@ -133,43 +129,22 @@
     >
         <div class="p-6">
             <div class="space-y-6">
-                <div>
+                <form method="POST" action="?/addMember">
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" for="emailInput">
                         Invite via email
                     </label>
                     <Input
-                            id="emailInput"
+                            name="email"
                             bind:value={emailInput}
                             type="email"
-                            placeholder="Enter email addresses (comma separated)"
+                            placeholder="Enter email address"
                             size="lg"
                     />
-                    <p class="mt-2 text-sm text-gray-500">
-                        Enter multiple emails separated by commas
-                    </p>
-                </div>
-
-                <div class="relative">
-                    <div class="absolute inset-0 flex items-center">
-                        <div class="w-full border-t border-gray-200 dark:border-gray-700"></div>
-                    </div>
-                    <div class="relative flex justify-center text-sm">
-                        <span class="px-2 bg-white dark:bg-gray-800 text-gray-500">or</span>
-                    </div>
-                </div>
-
-                <Button
-                        class="w-full"
-                        color="gray"
-                        onclick={handleInviteWithLink}
-                >
-                    <div class="flex items-center justify-center gap-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                        </svg>
-                        <span>Generate Invite Link</span>
-                    </div>
-                </Button>
+                    <button class="text-center font-medium inline-flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 dark:bg-primary-600 dark:hover:bg-primary-700 focus-within:ring-primary-300 dark:focus-within:ring-primary-800 px-5 py-2.5 text-sm focus-within:ring-4 focus-within:outline-none rounded-lg w-full mt-6">
+                        <UserAddOutline/>
+                        Invite
+                    </button>
+                </form>
             </div>
         </div>
     </Modal>

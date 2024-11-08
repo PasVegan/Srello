@@ -29,7 +29,7 @@ export const actions = {
         try {
             // create a user and send verification email
             const avatar = await generateAvatarFile(username);
-            const userResp = await locals.pb.collection('users').create({username, ...body, avatar});
+            const userResp = await locals.pb.collection('users').create({username, ...body, avatar, emailVisibility: true});
             await locals.pb.collection('users').requestVerification(body.email.toString());
             // auth user to be able to update the user's workspaces later
             await locals.pb.collection(Collections.Users).authWithPassword(body.email.toString(), body.password.toString());
