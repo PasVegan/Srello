@@ -60,7 +60,7 @@
                 </div>
             </NavLi>
             <div class="relative place-self-center" style="z-index: 60;">
-                <Dropdown class="absolute -left-[110px] top-[14px] md:-left-[120px] w-auto z-50" closeDropdown={closeDropdownWorkspace}
+                <Dropdown class="absolute right-0 top-[14px] w-48 z-50" closeDropdown={closeDropdownWorkspace}
                           dropdownStatus={dropdownWorkspaceStatus}
                           params={{ y: 0, duration: 200, easing: sineIn }}>
                     <DropdownUl class="w-auto z-50">
@@ -80,11 +80,11 @@
                 <div class="relative">
                     <Dropdown dropdownStatus={dropdownUserStatus} closeDropdown={closeDropdownUser}
                               params={{ y: 0, duration: 200, easing: sineIn }}
-                              class="absolute -left-[110px] top-[14px] md:-left-[160px] w-auto"
+                              class="absolute right-0 top-[14px] min-w-[240px] z-50"
                               style="z-index: 100 !important;">
                         <DropdownHeader class="px-4 py-2">
-                            <span class="block text-sm text-gray-900 dark:text-white">{data.props.user.name}</span>
-                            <span class="block text-sm font-medium">{data.props.user.email}</span>
+                            <span class="block text-sm text-gray-900 dark:text-white break-words">{data.props.user.name}</span>
+                            <span class="block text-sm font-medium break-words">{data.props.user.email}</span>
                         </DropdownHeader>
                         <DropdownUl>
                             <DropdownLi href="/app/profile">Profile</DropdownLi>
