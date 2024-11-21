@@ -1,7 +1,8 @@
 <script lang="ts">
     import {Register, Section} from "flowbite-svelte-blocks";
     import {enhance} from "$app/forms";
-    import {Button, Input, Label, Spinner} from "flowbite-svelte";
+    import {Button, Input, Label} from "flowbite-svelte";
+    import toast from "svelte-hot-french-toast";
 
     let password = '';
     let passwordError = '';
@@ -16,11 +17,32 @@
         return true;
     }
 
+    // @ts-ignore
     function handleSubmit(event) {
         if (!validatePassword()) {
             event.preventDefault();
         }
     }
+
+    const submitRegister = () => {
+        sending = true;
+        const toastId = toast.loading('Registering...')
+        // @ts-ignore
+        return async ({result, update}) => {
+            switch (result.type) {
+                case 'redirect':
+                    await update();
+                    toast.success('Registered successfully', {id: toastId});
+                    break;
+                case 'error':
+                    toast.error(result.error.message, {id: toastId});
+                    break;
+                default:
+                    await update();
+            }
+            sending = false;
+        };
+    };
 </script>
 
 <Section name="register">
@@ -31,13 +53,7 @@
         </svelte:fragment>
         <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
             <form action="?/register" class="flex flex-col space-y-6" method="POST" on:submit={handleSubmit}
-                  use:enhance={() => {
-                      sending = true;
-                      return ({ update }) => {
-                            update({ invalidateAll: true }).finally(async () => {sending = false;
-                            });
-                        };
-                  }}>
+                  use:enhance={submitRegister}>
                 <h3 class="text-xl font-medium text-gray-900 dark:text-white p-0">Create an account</h3>
                 <Label class="space-y-2">
                     <span>Your name</span>
@@ -68,14 +84,7 @@
                     <Input autocomplete="new-password" name="passwordConfirm" placeholder="•••••" required
                            type="password"/>
                 </Label>
-                {#if sending}
-                    <Button type="submit" class="w-full1">
-                        <Spinner class="me-3" size="5" color="white"/>
-                        Loading ...
-                    </Button>
-                {:else}
-                    <Button type="submit" class="w-full1">Create an account</Button>
-                {/if}
+                <Button type="submit" class="w-full1" disabled={sending}>Create an account</Button>
                 <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
                     Already have an account?
                     <a class="font-medium text-primary-600 hover:underline dark:text-primary-500" href="/login">

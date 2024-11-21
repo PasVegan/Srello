@@ -3,8 +3,28 @@
     import {Alert, Button, Checkbox, Input, Label} from "flowbite-svelte";
     import CircleMinusOutline from "flowbite-svelte-icons/CircleMinusOutline.svelte";
     import type {ActionData} from './$types';
+    import toast from "svelte-hot-french-toast";
+    import {enhance} from "$app/forms";
 
     export let form: ActionData;
+
+    const submitLogin = () => {
+        const toastId = toast.loading('Logging in...')
+        // @ts-ignore
+        return async ({result, update}) => {
+            switch (result.type) {
+                case 'redirect':
+                    await update();
+                    toast.success('Logged in successfully', {id: toastId});
+                    break;
+                case 'error':
+                    toast.error(result.error.message, {id: toastId});
+                    break;
+                default:
+                    await update();
+            }
+        };
+    };
 </script>
 
 <Section name="login">
@@ -14,7 +34,7 @@
             Srello
         </svelte:fragment>
         <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <form action="?/login" class="flex flex-col space-y-6" method="POST">
+            <form action="?/login" class="flex flex-col space-y-6" method="POST" use:enhance={submitLogin}>
                 <h3 class="text-xl font-medium text-gray-900 dark:text-white p-0">Log in</h3>
                 <Label class="space-y-2">
                     <span>Your email</span>

@@ -1,12 +1,12 @@
 import type {Actions} from './$types';
 import {generateUsername} from "$lib/utils";
-import {fail, redirect} from "@sveltejs/kit";
+import {error, redirect} from "@sveltejs/kit";
 import {Collections, type WorkspacesRecord} from "$lib/pocketbase-types";
 
 
 async function generateAvatarFile(username: string): Promise<File> {
     const seed = username.replace(/[^a-zA-Z0-9]/g, '');
-    const style = 'bottts-neutral'; // or any other style: bottts, pixel-art, etc.
+    const style = 'bottts-neutral';
     const url = `https://api.dicebear.com/9.x/${style}/svg?seed=${seed}`;
 
     // Fetch the SVG
@@ -42,8 +42,8 @@ export const actions = {
             });
             await locals.pb.collection(Collections.Users).requestVerification(body.email.toString());
         } catch (err) {
-            console.log('Error registering user', err);
-            return fail(500, {error: 'Error registering user'});
+            // @ts-ignore
+            return error(err.status, err.message);
         }
 
         throw redirect(303, '/login');

@@ -1,12 +1,11 @@
 <script lang="ts">
-    import {Alert, Avatar, Badge, Button, Card, Input, Modal, Search} from 'svelte-5-ui-lib';
+    import {Avatar, Badge, Button, Card, Input, Modal, Search} from 'svelte-5-ui-lib';
     import UserAddOutline from 'flowbite-svelte-icons/UserAddOutline.svelte'
-    import {slide} from 'svelte/transition';
     import type {PageData} from './$types';
-    import type {UsersResponse} from "$lib/pocketbase-types";
+    import toast from "svelte-hot-french-toast"
+    import {enhance} from "$app/forms";
 
     let showInviteModal = $state(false);
-    let showAlert = $state(false);
     let filterValue = $state('');
     let emailInput = $state('');
 
@@ -20,24 +19,41 @@
         showInviteModal = !showInviteModal;
     };
 
-    const handleRemoveMember = (member: UsersResponse) => {
-        console.log(`Removing member: ${member.name}`);
+    const submitInvite = () => {
+        const toastId = toast.loading('Inviting...')
+        // @ts-ignore
+        return async ({result, update}) => {
+            switch (result.type) {
+                case 'error':
+                    toast.error(result.error.message, {id: toastId});
+                    break;
+                default:
+                    await update();
+                    toast.success('Invited successfully', {id: toastId});
+                    break;
+            }
+        };
+    };
+
+    const submitDelete = () => {
+        const toastId = toast.loading('Deleting...')
+        // @ts-ignore
+        return async ({result, update}) => {
+            switch (result.type) {
+                case 'error':
+                    toast.error(result.error.message, {id: toastId});
+                    break;
+                default:
+                    await update();
+                    toast.success('Deleted successfully', {id: toastId});
+                    break;
+            }
+        };
     };
 
 </script>
 
 <div class="h-full w-full bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 p-4 md:p-8">
-    {#if showAlert}
-        <Alert
-                transition={slide}
-                color="green"
-                class="fixed top-4 right-4 z-50 shadow-lg"
-                dismissable
-        >
-            <span class="font-medium">Success!</span> Invite link has been copied to your clipboard.
-        </Alert>
-    {/if}
-
     <Card class="w-full max-w-none shadow-xl" color="gray">
         <!-- Header Section -->
         <div class="border-b border-gray-200 dark:border-gray-700 px-6 py-4">
@@ -60,7 +76,8 @@
                         size="lg"
                 >
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" stroke-linecap="round" stroke-linejoin="round"
+                        <path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+                              stroke-linecap="round" stroke-linejoin="round"
                               stroke-width="2"/>
                     </svg>
                     Invite Members
@@ -110,9 +127,8 @@
                                           d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
                                 </svg>
                             </Button>
-                            <form method="POST" action="?/deleteMember&id={member.id}">
-                                <button class="text-center font-medium inline-flex items-center justify-center text-white bg-red-700 hover:bg-red-800 dark:bg-red-600 dark:hover:bg-red-700 focus-within:ring-red-300 dark:focus-within:ring-red-900 px-4 py-2 text-sm focus-within:ring-4 focus-within:outline-none border border-gray-300 dark:border-gray-400 rounded-lg whitespace-nowrap"
-                                        onclick={() => handleRemoveMember(member)}>
+                            <form method="POST" action="?/deleteMember&id={member.id}" use:enhance={submitDelete}>
+                                <button class="text-center font-medium inline-flex items-center justify-center text-white bg-red-700 hover:bg-red-800 dark:bg-red-600 dark:hover:bg-red-700 focus-within:ring-red-300 dark:focus-within:ring-red-900 px-4 py-2 text-sm focus-within:ring-4 focus-within:outline-none border border-gray-300 dark:border-gray-400 rounded-lg whitespace-nowrap">
                                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                               d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
@@ -136,7 +152,7 @@
     >
         <div class="p-6">
             <div class="space-y-6">
-                <form action="?/addMember" method="POST">
+                <form action="?/addMember" method="POST" use:enhance={submitInvite}>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" for="emailInput">
                         Invite via email
                     </label>

@@ -1,6 +1,6 @@
 import type {Actions} from './$types';
 import {Collections} from "$lib/pocketbase-types";
-import {fail} from "@sveltejs/kit";
+import {error} from "@sveltejs/kit";
 
 export const actions = {
     addMember: async ({params, locals, request}) => {
@@ -12,19 +12,14 @@ export const actions = {
             const resUser = await locals.pb.collection(Collections.Users).getFirstListItem(
                 locals.pb.filter("email = {:email}", {email: body.email}));
             if (!resUser) {
-                console.log('User not found');
-                return {success: false};
+                return error(400, 'User not found');
             }
-            await locals.pb.collection(Collections.Workspaces).update(workspaceId, {
-                "members+": resUser.id,
-            })
             await locals.pb.collection(Collections.Users).update(resUser.id, {
                 "workspaces+": workspaceId,
             });
-            return {success: true};
         } catch (err) {
-            console.log('Error adding member', err);
-            return fail(500, {error: 'Error creating workspace'});
+            // @ts-ignore
+            return error(err.status, err.message);
         }
     },
     deleteMember: async ({url, params, locals}) => {
@@ -32,22 +27,19 @@ export const actions = {
         const userId = url.searchParams.get('id');
 
         if (!userId) {
-            return fail(400, {error: 'User ID is required'});
+            return error(400, 'User ID is required');
         }
         if (userId === locals.user?.id) {
-            return fail(400, {error: 'You cannot delete yourself'});
+            return error(400, 'You cannot delete yourself');
         }
 
         try {
-            await locals.pb.collection(Collections.Workspaces).update(workspaceId, {
-                "members-": userId,
-            })
             await locals.pb.collection(Collections.Users).update(userId, {
                 "workspaces-": workspaceId,
             });
-            return {success: true};
         } catch (error) {
-            return fail(500, {error: 'Failed to delete member'});
+            // @ts-ignore
+            return error(err.status, err.message);
         }
     }
 } satisfies Actions;
