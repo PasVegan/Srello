@@ -87,23 +87,23 @@
 
             <div class="space-y-3">
                 {#each (data.props.members ?? []).filter(m => m.name.toLowerCase().includes(filterValue.toLowerCase())) as member}
-                    <div class="flex flex-col md:flex-row md:items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 hover:shadow-lg transition-all duration-200 gap-4">
-                        <div class="flex items-center gap-4">
+                    <div class="flex flex-col md:flex-row justify-between p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 hover:shadow-lg transition-all duration-200">
+                        <div class="flex items-center gap-4 min-w-0">
                             <Avatar src={member.avatar} alt={member.name} size="xl"
-                                    class="ring-2 ring-primary-100 dark:ring-primary-900"/>
-                            <div>
-                                <div class="flex items-center gap-2">
-                                    <p class="font-semibold text-gray-900 dark:text-white">{member.name}</p>
+                                    class="ring-2 ring-primary-100 dark:ring-primary-900 flex-shrink-0"/>
+                            <div class="min-w-0">
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <p class="font-semibold text-gray-900 dark:text-white truncate">{member.name}</p>
                                     <Badge color="primary" class="text-xs">Admin</Badge>
                                 </div>
-                                <p class="text-sm text-gray-500">{member.email}</p>
+                                <p class="text-sm text-gray-500 truncate">{member.email}</p>
                                 <div class="flex items-center gap-2 mt-1">
-                                    <span class="w-2 h-2 rounded-full bg-gray-400"></span>
+                                    <span class="w-2 h-2 rounded-full bg-gray-400 flex-shrink-0"></span>
                                     <p class="text-xs text-gray-400">Just now</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-3 mt-4 md:mt-0 flex-shrink-0">
                             <Button size="sm" color="gray" class="!px-3">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -111,7 +111,7 @@
                                 </svg>
                             </Button>
                             <form method="POST" action="?/deleteMember&id={member.id}">
-                                <button class="text-center font-medium inline-flex items-center justify-center text-white bg-red-700 hover:bg-red-800 dark:bg-red-600 dark:hover:bg-red-700 focus-within:ring-red-300 dark:focus-within:ring-red-900 px-4 py-2 text-sm focus-within:ring-4 focus-within:outline-none border border-gray-300 dark:border-gray-400 rounded-lg"
+                                <button class="text-center font-medium inline-flex items-center justify-center text-white bg-red-700 hover:bg-red-800 dark:bg-red-600 dark:hover:bg-red-700 focus-within:ring-red-300 dark:focus-within:ring-red-900 px-4 py-2 text-sm focus-within:ring-4 focus-within:outline-none border border-gray-300 dark:border-gray-400 rounded-lg whitespace-nowrap"
                                         onclick={() => handleRemoveMember(member)}>
                                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
