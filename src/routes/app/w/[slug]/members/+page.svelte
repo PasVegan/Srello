@@ -74,7 +74,7 @@
                 <div class="flex items-center gap-2">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Team Members</h3>
                     <Badge class="text-xs" color="primary">
-                        {data.props.workspace.members.length}
+                        {data.props.members.length}
                     </Badge>
                 </div>
                 <Search
@@ -86,7 +86,7 @@
             </div>
 
             <div class="space-y-3">
-                {#each (data.props.workspace?.expand?.users_via_workspaces ?? []).filter(m => m.name.toLowerCase().includes(filterValue.toLowerCase())) as member}
+                {#each (data.props.members ?? []).filter(m => m.name.toLowerCase().includes(filterValue.toLowerCase())) as member}
                     <div class="flex flex-col md:flex-row md:items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 hover:shadow-lg transition-all duration-200 gap-4">
                         <div class="flex items-center gap-4">
                             <Avatar src={member.avatar} alt={member.name} size="xl"
