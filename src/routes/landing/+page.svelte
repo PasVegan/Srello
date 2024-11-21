@@ -110,8 +110,9 @@
                 {/snippet}
                 <p class="text-gray-500 dark:text-gray-400">You can add unlimited team members to your boards.</p>
                 <p class="text-gray-500 dark:text-gray-400">
-                    Need more information? <a class="font-medium underline text-primary-600 dark:text-primary-500 hover:no-underline"
-                                              href="/">Contact
+                    Need more information? <a
+                        class="font-medium underline text-primary-600 dark:text-primary-500 hover:no-underline"
+                        href="/">Contact
                     our support team</a>.
                 </p>
             </FaqItem>
@@ -133,8 +134,9 @@
                     perfect for both small teams and large organizations. Our focus on user experience and seamless
                     collaboration sets us apart from other tools.</p>
                 <p class="text-gray-500 dark:text-gray-400">
-                    Learn more about our features in our <a class="font-medium underline text-primary-600 dark:text-primary-500 hover:no-underline"
-                                                            href="/">documentation</a>.
+                    Learn more about our features in our <a
+                        class="font-medium underline text-primary-600 dark:text-primary-500 hover:no-underline"
+                        href="/">documentation</a>.
                 </p>
             </FaqItem>
         </div>

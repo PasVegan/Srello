@@ -7,7 +7,7 @@ export const load: LayoutServerLoad = async ({locals, params}) => {
         params.slug as string,
     );
     let members = await locals.pb.collection(Collections.Users).getFullList<UsersResponse>({
-            filter: `workspaces.id ?~ "${workspace.id}"`,
+        filter: `workspaces.id ?~ "${workspace.id}"`,
     });
 
     // Process all avatar URLs in parallel
