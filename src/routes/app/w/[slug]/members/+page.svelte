@@ -96,7 +96,7 @@
                 </div>
                 <Search
                         bind:value={filterValue}
-                        class="w-full md:w-72"
+
                         placeholder="Search members..."
                         size="md"
                 />

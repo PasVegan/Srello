@@ -14,6 +14,8 @@ const config = {
         adapter: adapter(),
         alias: {
             $components: "./src/component",
+            $lib: "./src/lib",
+            $globals: "./src/lib/globals.ts",
         }
     }
 };
