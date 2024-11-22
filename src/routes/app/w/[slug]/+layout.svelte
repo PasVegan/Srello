@@ -21,13 +21,19 @@
         data: LayoutData;
     }
 
+    let activeUrl = $state($page.url.pathname);
+
     let {children, data}: Props = $props();
+
+    $effect(() => {
+        activeUrl = $page.url.pathname;
+    });
 </script>
 
 
 <div class="flex h-full relative">
     {#if sidebarUiStatus === true}
-        <Sidebar backdrop={false} activateClickOutside={false} params={{ x: -50, duration: 50 }}
+        <Sidebar {activeUrl} backdrop={false} activateClickOutside={false} params={{ x: -50, duration: 50 }}
                  class="relative h-full" activeClass="p-2" nonActiveClass="p-2">
             <div class="flex justify-between items-center w-full">
                 <span class="text-lg font-semibold text-gray-900 dark:text-gray-200">{data.props.workspace.name}</span>
