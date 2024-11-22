@@ -36,7 +36,7 @@ export const handle: Handle = async ({event, resolve}): Promise<Response> => {
 
     const response = await resolve(event);
 
-    response.headers.set('set-cookie', event.locals.pb.authStore.exportToCookie({secure: true}));
+    response.headers.set('set-cookie', event.locals.pb.authStore.exportToCookie({secure: true, httpOnly: false}));
 
     return response;
 }

@@ -2,7 +2,9 @@ import type {LayoutServerLoad} from './$types';
 import {Collections} from "$lib/pocketbase-types";
 import {error} from "@sveltejs/kit";
 
-export const load: LayoutServerLoad = async ({locals}) => {
+export const ssr = false;
+
+export const load: LayoutServerLoad = async ({locals, cookies}) => {
     // Fetch the user workspaces
     try {
         const workspaces = await locals.pb.collection(Collections.Workspaces).getFullList({
@@ -11,7 +13,8 @@ export const load: LayoutServerLoad = async ({locals}) => {
         return {
             props: {
                 user: locals!.user!,
-                workspaces: workspaces
+                workspaces: workspaces,
+                cookie: cookies.get('pb-auth') || '',
             }
         };
     } catch (err) {
