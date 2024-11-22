@@ -70,6 +70,7 @@
         if (e.action === 'update') {
             const currentWorkspaces = new Set(userWorkspace);
             const updatedWorkspaces = new Set(e.record.workspaces);
+            console.log(currentWorkspaces, updatedWorkspaces);
 
             // Find new workspaces (present in updated but not in current)
             const newWorkspaces = e.record.workspaces.filter(id => !currentWorkspaces.has(id));
@@ -92,20 +93,20 @@
                 }
             }
 
-            if (removedWorkspaces.length > 0) {
-                const removedWorkspacesData = await pb.collection(Collections.Workspaces).getFullList({
-                    filter: removedWorkspaces.map((id) => `id="${id}"`).join("||"),
-                    fields: 'name'
-                });
-
-                for (const workspace of removedWorkspacesData) {
-                    messages.push({
-                        id: crypto.randomUUID(),
-                        title: 'Workspace Removed',
-                        message: `You have been removed from the workspace "${workspace.name}"`
-                    });
-                }
-            }
+            // if (removedWorkspaces.length > 0) {
+            //     const removedWorkspacesData = await pb.collection(Collections.Workspaces).getFullList({
+            //         filter: removedWorkspaces.map((id) => `id="${id}"`).join("||"),
+            //         fields: 'name'
+            //     });
+            //
+            //     for (const workspace of removedWorkspacesData) {
+            //         messages.push({
+            //             id: crypto.randomUUID(),
+            //             title: 'Workspace Removed',
+            //             message: `You have been removed from the workspace "${workspace.name}"`
+            //         });
+            //     }
+            // }
 
             // Update the state with a new workspace list
             userWorkspace = [...e.record.workspaces];
@@ -190,12 +191,12 @@
                                     {message.message}
                                 </span>
                                             </div>
-                                            <button
-                                                    class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 flex-shrink-0"
-                                                    onclick={() => deleteMessage(message.id)}
-                                            >
-                                                ✕
-                                            </button>
+<!--                                            <button-->
+<!--                                                    class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 flex-shrink-0"-->
+<!--                                                    onclick={() => deleteMessage(message.id)}-->
+<!--                                            >-->
+<!--                                                ✕-->
+<!--                                            </button>-->
                                         </div>
                                     </DropdownLi>
                                 {/each}
@@ -203,7 +204,7 @@
                         </DropdownUl>
                     </Dropdown>
                 </div>
-                <Avatar onclick={dropdownUser.toggle} src={data.props.user.avatar}/>
+                <Avatar onclick={dropdownUser.toggle} src={data.props.user.avatar} dot={{ color: "green" }}/>
                 <div class="relative place-self-center" style="z-index: 60;" >
                     <Dropdown dropdownStatus={dropdownUserStatus} closeDropdown={closeDropdownUser}
                               params={{ y: 0, duration: 200, easing: sineIn }}
