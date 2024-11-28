@@ -5,8 +5,14 @@
     import type {ActionData} from './$types';
     import toast from "svelte-hot-french-toast";
     import {enhance} from "$app/forms";
+    import PocketBase from "pocketbase";
+    import {pbURL} from "$globals";
+    import {Collections, type TypedPocketBase} from "$lib/pocketbase-types";
+    import {goto} from "$app/navigation";
 
     export let form: ActionData;
+
+    const pb = new PocketBase(pbURL) as TypedPocketBase;
 
     const submitLogin = () => {
         const toastId = toast.loading('Logging in...')
@@ -25,6 +31,15 @@
             }
         };
     };
+
+    function submitGoogleLogin() {
+        pb.collection(Collections.Users).authWithOAuth2({"provider": "google"});
+    }
+
+    pb.authStore.onChange(() => {
+        document.cookie = pb.authStore.exportToCookie({ httpOnly: false });
+        goto("/app");
+    });
 </script>
 
 <Section name="login">
@@ -51,7 +66,7 @@
                         Forgot password?
                     </a>
                 </div>
-                <Button class="w-full1" type="submit">Sign in</Button>
+                <Button type="submit">Sign in</Button>
                 <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                     Don’t have an account yet?
                     <a class="font-medium text-primary-600 hover:underline dark:text-primary-500" href="/register">
@@ -66,6 +81,10 @@
                     </Alert>
                 {/if}
             </form>
+            <Button color="alternative" class="w-full" on:click={submitGoogleLogin}>
+                <img alt="Google Logo" class="mr-3 h-6 sm:h-9" src="/google-icon.svg"/>
+                Sign in with Google
+            </Button>
         </div>
     </Register>
 </Section>
