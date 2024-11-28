@@ -20,6 +20,7 @@ COPY . .
 
 # build
 ENV NODE_ENV=production
+ENV ORIGIN=https://srello.cbyte.be
 
 # Compile
 RUN bun run build
@@ -32,5 +33,8 @@ COPY --from=prerelease /usr/app/build/package.json .
 
 # run the app
 USER bun
+
 EXPOSE 3000/tcp
+ENV ORIGIN=https://srello.cbyte.be
+
 ENTRYPOINT [ "bun", "./index.js" ]
