@@ -27,17 +27,11 @@ export const actions = {
         const username = generateUsername(body.name.toString().split(' ').join('')).toLowerCase();
 
         try {
-            // create workspace for user
-            let workspace: WorkspacesRecord = {
-                name: `${body.name}'s Workspace`,
-            }
-            const workspaceResp = await locals.pb.collection(Collections.Workspaces).create(workspace);
             // create a user and send verification email
             const avatar = await generateAvatarFile(username);
             await locals.pb.collection('users').create({
                 username, ...body,
                 avatar,
-                workspaces: [workspaceResp.id],
                 emailVisibility: true
             });
             await locals.pb.collection(Collections.Users).requestVerification(body.email.toString());
