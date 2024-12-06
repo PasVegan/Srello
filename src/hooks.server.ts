@@ -20,7 +20,7 @@ export const handle: Handle = async ({event, resolve}): Promise<Response> => {
             throw redirect(303, '/login');
         }
         event.locals.user = serializeNonPOJOs(event.locals.pb.authStore.model);
-        event.locals.user!.avatar = event.locals.pb.files.getUrl(event.locals.user!, event.locals.user!.avatar);
+        event.locals.user!.avatar = event.locals.pb.files.getURL(event.locals.user!, event.locals.user!.avatar);
         isLogged = true;
     } else {
         event.locals.user = undefined;

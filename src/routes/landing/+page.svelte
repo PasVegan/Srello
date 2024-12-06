@@ -146,8 +146,8 @@
 <Footer footerType="socialmedia">
     <div class="grid gap-12 lg:grid-cols-5 lg:gap-24">
         <div class="col-span-2">
-            <FooterBrand aClass="flex mb-6" alt="Srello Logo" href="https://area.cbyte.be" name="Srello"
-                         src="/srello.svg"/>
+            <FooterBrand aClass="flex mb-6" alt="Srello Logo" href="https://srello.cbyte.be" name="Srello"
+                         src="/srell"/>
             <p class="text-gray-600 dark:text-gray-400">Srello is agile planning application for developers</p>
         </div>
         <div>

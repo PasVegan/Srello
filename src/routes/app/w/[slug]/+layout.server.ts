@@ -14,7 +14,7 @@ export const load: LayoutServerLoad = async ({locals, params}) => {
     if (members) {
         members = await Promise.all(
             members.map(member => {
-                const avatarUrl = locals.pb.files.getUrl(member, member.avatar);
+                const avatarUrl = locals.pb.files.getURL(member, member.avatar);
                 return {...member, avatar: avatarUrl};
             })
         );
