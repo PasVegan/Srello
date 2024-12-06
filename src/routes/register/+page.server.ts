@@ -1,7 +1,7 @@
 import type {Actions} from './$types';
 import {generateUsername} from "$lib/utils";
 import {error, redirect} from "@sveltejs/kit";
-import {Collections, type WorkspacesRecord} from "$lib/pocketbase-types";
+import {Collections} from "$lib/pocketbase-types";
 
 
 async function generateAvatarFile(username: string): Promise<File> {
